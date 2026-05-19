@@ -1,3 +1,7 @@
+<?php 
+  $creneauxCount = count($creneaux);
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -42,7 +46,7 @@
       <div class="topbar">
         <span class="topbar-title">Vue d'ensemble</span>
         <div class="topbar-actions">
-          <a href="#page-admin-creneaux" class="icon-btn" title="Ajouter un créneau"><i class="bi bi-plus-lg"></i></a>
+          <a href="<?= site_url('admin/ajouter-creneau') ?>" class="icon-btn" title="Ajouter un créneau"><i class="bi bi-plus-lg"></i></a>
         </div>
       </div>
 
@@ -62,12 +66,12 @@
           </div>
           <div class="metric-card">
             <div class="metric-icon blue"><i class="bi bi-calendar-check"></i></div>
-            <div class="metric-value">6</div>
+            <div class="metric-value"><?php echo $creneauxCount; ?></div>
             <div class="metric-label">Créneaux actifs</div>
           </div>
           <div class="metric-card">
             <div class="metric-icon red"><i class="bi bi-people-fill"></i></div>
-            <div class="metric-value">31</div>
+            <div class="metric-value"><?php echo $clients; ?></div>
             <div class="metric-label">Clients inscrits</div>
             <div class="metric-trend up"><i class="bi bi-arrow-up-short"></i> +3 cette semaine</div>
           </div>
