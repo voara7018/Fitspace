@@ -15,7 +15,6 @@
 <section id="page-dashboard-admin">
   <div class="app-wrapper">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="sidebar-logo">Fit<span>Space</span> <span style="font-size:0.6rem;background:var(--accent);color:#fff;padding:2px 6px;border-radius:4px;vertical-align:middle;">Admin</span></div>
       <div class="sidebar-section">Gestion</div>
@@ -34,7 +33,6 @@
       </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <div class="main-content">
       <div class="topbar">
         <span class="topbar-title">Statistiques & Analyses</span>
@@ -43,7 +41,6 @@
       <div class="page-content">
         <div class="row g-4">
           
-          <!-- CHART 1: RESERVATIONS BY RESOURCE TYPE -->
           <div class="col-lg-6 col-12">
             <div class="data-card" style="height: 100%; min-height: 400px; display: flex; flex-direction: column;">
               <div class="data-card-header">
@@ -64,7 +61,6 @@
             </div>
           </div>
 
-          <!-- CHART 2: RESERVATIONS EVOLUTION (DAILY) -->
           <div class="col-lg-6 col-12">
             <div class="data-card" style="height: 100%; min-height: 400px; display: flex; flex-direction: column;">
               <div class="data-card-header">
@@ -94,7 +90,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // We wait for Chart.js to load in the browser
     const checkChartLoaded = setInterval(() => {
         if (typeof Chart !== 'undefined') {
             clearInterval(checkChartLoaded);
@@ -103,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 50);
 
     function initializeCharts() {
-        // Resource Distribution Chart (Doughnut)
         const resourceCtx = document.getElementById('resourceChart');
         if (resourceCtx) {
             const rawResourceData = <?= json_encode($reservationsParRessource) ?>;
@@ -117,13 +111,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     datasets: [{
                         data: totals,
                         backgroundColor: [
-                            'rgba(255, 74, 90, 0.85)',   // Accent Red-orange
-                            'rgba(0, 242, 254, 0.85)',   // Neon cyan
-                            'rgba(57, 255, 20, 0.85)',   // Lime green
-                            'rgba(155, 89, 182, 0.85)',  // Purple
-                            'rgba(241, 196, 15, 0.85)'   // Gold yellow
+                            'rgba(233, 69, 96, 0.85)',   // Accent Red-pink
+                            'rgba(15, 52, 96, 0.85)',    // Navy Blue
+                            'rgba(34, 160, 90, 0.85)',   // Success green
+                            'rgba(241, 196, 15, 0.85)',  // Warning yellow
+                            'rgba(10, 77, 122, 0.85)'    // Soft Info Blue
                         ],
-                        borderColor: '#16192b',
+                        borderColor: '#ffffff',
                         borderWidth: 2,
                         hoverOffset: 12
                     }]
@@ -135,45 +129,45 @@ document.addEventListener('DOMContentLoaded', function () {
                         legend: {
                             position: 'bottom',
                             labels: {
-                                color: '#a2a5b9',
+                                color: '#7b7b96',
                                 font: {
                                     family: 'DM Sans',
-                                    size: 12
+                                    size: 12,
+                                    weight: '500'
                                 },
                                 padding: 15
                             }
                         },
                         tooltip: {
-                            backgroundColor: '#16192b',
+                            backgroundColor: '#1a1a2e',
                             titleColor: '#fff',
-                            bodyColor: '#a2a5b9',
+                            bodyColor: '#fff',
                             borderColor: 'rgba(255, 255, 255, 0.1)',
-                            borderWidth: 1
+                            borderWidth: 1,
+                            cornerRadius: 6,
+                            padding: 10
                         }
                     }
                 }
             });
         }
 
-        // Daily Bookings Trend Chart (Line Chart)
         const dailyCtx = document.getElementById('dailyChart');
         if (dailyCtx) {
             const rawDailyData = <?= json_encode($reservationsParJour) ?>;
             const dailyLabels = rawDailyData.map(item => {
                 const dateParts = item.date.split('-');
                 if (dateParts.length === 3) {
-                    // Return "DD/MM" format for clean display
                     return `${dateParts[2]}/${dateParts[1]}`;
                 }
                 return item.date;
             });
             const dailyTotals = rawDailyData.map(item => parseInt(item.total));
 
-            // Create gradient background
             const ctx2d = dailyCtx.getContext('2d');
             const gradient = ctx2d.createLinearGradient(0, 0, 0, 200);
-            gradient.addColorStop(0, 'rgba(0, 242, 254, 0.4)');
-            gradient.addColorStop(1, 'rgba(0, 242, 254, 0.0)');
+            gradient.addColorStop(0, 'rgba(233, 69, 96, 0.25)');
+            gradient.addColorStop(1, 'rgba(233, 69, 96, 0.0)');
 
             new Chart(dailyCtx, {
                 type: 'line',
@@ -184,10 +178,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         data: dailyTotals,
                         fill: true,
                         backgroundColor: gradient,
-                        borderColor: '#00f2fe',
+                        borderColor: '#e94560',
                         borderWidth: 3,
-                        pointBackgroundColor: '#00f2fe',
-                        pointBorderColor: '#16192b',
+                        pointBackgroundColor: '#e94560',
+                        pointBorderColor: '#ffffff',
                         pointBorderWidth: 2,
                         pointRadius: 6,
                         pointHoverRadius: 8,
@@ -202,37 +196,41 @@ document.addEventListener('DOMContentLoaded', function () {
                             display: false
                         },
                         tooltip: {
-                            backgroundColor: '#16192b',
+                            backgroundColor: '#1a1a2e',
                             titleColor: '#fff',
-                            bodyColor: '#a2a5b9',
+                            bodyColor: '#fff',
                             borderColor: 'rgba(255, 255, 255, 0.1)',
-                            borderWidth: 1
+                            borderWidth: 1,
+                            cornerRadius: 6,
+                            padding: 10
                         }
                     },
                     scales: {
                         x: {
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.05)',
-                                borderColor: 'transparent'
+                                color: '#e2e2ea',
+                                drawBorder: false
                             },
                             ticks: {
-                                color: '#a2a5b9',
+                                color: '#7b7b96',
                                 font: {
-                                    family: 'DM Sans'
+                                    family: 'DM Sans',
+                                    weight: '500'
                                 }
                             }
                         },
                         y: {
                             grid: {
-                                color: 'rgba(255, 255, 255, 0.05)',
-                                borderColor: 'transparent'
+                                color: '#e2e2ea',
+                                drawBorder: false
                             },
                             ticks: {
                                 stepSize: 1,
                                 precision: 0,
-                                color: '#a2a5b9',
+                                color: '#7b7b96',
                                 font: {
-                                    family: 'DM Sans'
+                                    family: 'DM Sans',
+                                    weight: '500'
                                 }
                             },
                             beginAtZero: true
