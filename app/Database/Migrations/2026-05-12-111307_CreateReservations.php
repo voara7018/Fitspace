@@ -26,6 +26,10 @@ class CreateReservations extends Migration
                 'constraint' => 20,
                 'default' => 'en_attente',
             ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => false,
+            ],
         ]);
 
         $this->forge->addKey('id', true);
