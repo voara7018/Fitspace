@@ -10,14 +10,15 @@ $routes->get('/', 'User::showLogin');
 $routes->get('/inscription', 'User::showInscription');
 $routes->post('/inscription', 'User::insertUser');
 $routes->post('/login', 'User::loginUser');
+$routes->get('/creneaux-disponibles', 'Creneau::showCreneauDispo');
 
-// Client protected routes
+// Client routes
 $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/creneaux', 'Creneau::showCreneaux');
     $routes->get('/logout', 'User::logout');
 });
 
-// Admin protected routes
+// Admin routes
 $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('', 'Admin::showAdmin');
 });

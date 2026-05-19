@@ -28,7 +28,6 @@ class User extends BaseController
         $model = new UserModel();
         $data = $this->request->getPost();
         
-        // Force key roles
         $data['role'] = 'client';
 
         if (!$model->insert($data)) {
