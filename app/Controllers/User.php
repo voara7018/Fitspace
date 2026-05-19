@@ -91,11 +91,67 @@ class User extends BaseController
 
     public function showDashboard()
     {
-        return view('dashboardClient');
-    }
+        if (!session()->get('isLoggedIn') || session()->get('role') !== 'client') {
+            return redirect()->to('/')->with('error', 'Veuillez vous connecter en tant que client.');
+        }
 
-    public function showMesReservations()
-    {
-        return view('mes_reservations');
+        $userId = session()->get('id');
+        $db = \Config\Database::connect();
+
+        // Count for: en_attente
+        $enAttenteCount = $db->table('reservations')
+            ->where('users_id', $userId)
+            ->where('statut', 'en_attente')
+            ->countAllResults();
+
+        // Count for: confirmée
+        $confirmeeCount = $db->table('reservations')
+            ->where('users_id', $userId)
+            ->where('statut', 'confirmé')
+            ->countAllResults();
+
+        // Count for: annulee
+        $annuleeCount = $db->table('reservations')
+            ->where('users_id', $userId)
+            ->groupStart()
+                ->where('statut', 'annulé')
+                ->orWhere('statut', 'annulee')
+            ->groupEnd()
+            ->countAllResults();
+
+        // Count for: à venir (active reservations that are en_attente or confirmé)
+        $aVenirCount = $db->table('reservations r')
+            ->join('creneaux c', 'c.id = r.creneaux_id')
+            ->where('r.users_id', $userId)
+            ->whereIn('r.statut', ['en_attente', 'confirmé'])
+            ->where('c.date_debut >=', date('Y-m-d H:i:s'))
+            ->countAllResults();
+
+        // mes prochaines réservations (non-cancelled, ordered by date)
+        $prochaines = $db->table('reservations r')
+            ->select('
+                r.id,
+                r.statut,
+                c.date_debut,
+                c.date_fin,
+                ressources.nom AS ressource_nom,
+                ressources.type AS ressource_type
+            ')
+            ->join('creneaux c', 'c.id = r.creneaux_id')
+            ->join('ressources', 'ressources.id = c.ressources_id')
+            ->where('r.users_id', $userId)
+            ->whereNotIn('r.statut', ['annulé', 'annulee'])
+            ->orderBy('c.date_debut', 'ASC')
+            ->limit(5)
+            ->get()
+            ->getResultArray();
+
+        return view('dashboardClient', [
+            'enAttenteCount' => $enAttenteCount,
+            'confirmeeCount' => $confirmeeCount,
+            'annuleeCount'   => $annuleeCount,
+            'aVenirCount'    => $aVenirCount,
+            'prochaines'     => $prochaines
+        ]);
     }
 }

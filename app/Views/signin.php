@@ -13,7 +13,7 @@
 <body>
     <section id="page-inscription" style="background:var(--surface);">
     <nav class="nav-public">
-        <a href="#" class="brand">Fit<span>Space</span></a>
+        <a href="<?= site_url('/') ?>" class="brand">Fit<span>Space</span></a>
     </nav>
     <div class="auth-wrapper">
         <div class="auth-card">

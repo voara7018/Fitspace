@@ -15,14 +15,36 @@
 <section id="page-creneaux" style="padding-top:1rem;">
 
   <nav class="nav-public">
-    <a href="#" class="brand">Fit<span>Space</span></a>
+    <a href="<?= site_url('/') ?>" class="brand">Fit<span>Space</span></a>
     <div class="nav-links">
-      <a href="/dashboard">Mon espace</a>
-      <a href="<?= site_url('logout') ?>"> Déconnexion</a>
+      <?php if (session()->get('isLoggedIn')): ?>
+        <?php if (session()->get('role') === 'admin'): ?>
+          <a href="<?= site_url('admin') ?>">Tableau de bord (Admin)</a>
+        <?php else: ?>
+          <a href="<?= site_url('dashboard') ?>">Tableau de bord</a>
+        <?php endif; ?>
+        <a href="<?= site_url('logout') ?>" class="btn-nav-primary"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
+      <?php else: ?>
+        <a href="<?= site_url('/') ?>">Connexion</a>
+        <a href="<?= site_url('inscription') ?>" class="btn-nav-primary">S'inscrire</a>
+      <?php endif; ?>
     </div>
   </nav>
 
   <div class="page-section">
+    <!-- Flash messages -->
+    <?php if (session()->getFlashdata('success')): ?>
+      <div class="flash-message flash-success" style="margin-bottom: 20px;">
+        <i class="bi bi-check-circle-fill"></i>
+        <?= esc(session()->getFlashdata('success')) ?>
+      </div>
+    <?php endif; ?>
+    <?php if (session()->getFlashdata('error')): ?>
+      <div class="flash-message" style="border-left-color: #ff4a5a; background: rgba(255, 74, 90, 0.05); padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+        <i class="bi bi-exclamation-circle-fill" style="color: #ff4a5a;"></i>
+        <span style="color: #ff4a5a; font-weight: 500;"><?= esc(session()->getFlashdata('error')) ?></span>
+      </div>
+    <?php endif; ?>
     <div class="section-head">
       <h2>Créneaux disponibles</h2>
       <span class="count"><?= $total ?> créneaux trouvés</span>
@@ -98,7 +120,7 @@
             <?php if ($isFull): ?>
               <button class="btn-reserver disabled" disabled>Complet</button>
             <?php else: ?>
-              <a href="/reserver/<?= $creneau['id'] ?>" class="btn-reserver">Réserver ce créneau</a>
+              <a href="<?= site_url('reserver/' . $creneau['id']) ?>" class="btn-reserver">Réserver ce créneau</a>
             <?php endif; ?>
           </div>
         <?php endforeach; ?>

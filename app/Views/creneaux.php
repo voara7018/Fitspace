@@ -22,7 +22,9 @@
       <a href="#">Tarifs</a>
       <?php if (session()->get('isLoggedIn')): ?>
         <?php if (session()->get('role') === 'admin'): ?>
-          <a href="<?= site_url('creneaux') ?>">Mon espace</a>
+          <a href="<?= site_url('admin') ?>">Tableau de bord (Admin)</a>
+        <?php else: ?>
+          <a href="<?= site_url('dashboard') ?>">Tableau de bord</a>
         <?php endif; ?>
         <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 500;">Bonjour, <?= esc(session()->get('nom')) ?></span>
         <a href="<?= site_url('logout') ?>" class="btn-nav-primary"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
