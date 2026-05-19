@@ -22,7 +22,6 @@ class Reservation extends BaseController
                 return redirect()->to('/creneaux-disponibles')
                     ->with('error', 'Désolé, ce créneau est complet.');
             }
-
             $resaModel = new ReservationModel();
             
             $resaModel->insert([

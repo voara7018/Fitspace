@@ -10,6 +10,8 @@ $routes->get('/', 'User::showLogin');
 $routes->get('/inscription', 'User::showInscription');
 $routes->post('/inscription', 'User::insertUser');
 $routes->post('/login', 'User::loginUser');
+$routes->post('admin/confirmer/(:num)', 'Admin::confirmerReservation/$1');
+$routes->post('admin/refuser/(:num)',   'Admin::refuserReservation/$1');
 
 // Client routes
 $routes->group('', ['filter' => 'auth'], function($routes) {

@@ -22,7 +22,7 @@ class Admin extends BaseController
         $statut2 = $modelReservaton->where('statut', 'confirmé')->countAllResults();
         $clients = $modelUser->where('role', 'client')->countAllResults();
        $vraistatut = $modelReservaton
-        ->select('users.nom, ressources.nom as nom_ressource, creneaux.date_debut, reservations.statut')
+        ->select('reservations.id, users.nom, ressources.nom as nom_ressource, creneaux.date_debut, reservations.statut')
         ->join('users', 'reservations.users_id = users.id')
         ->join('creneaux', 'reservations.creneaux_id = creneaux.id')
         ->join('ressources', 'creneaux.ressources_id = ressources.id')
@@ -33,7 +33,19 @@ class Admin extends BaseController
         return view('admin', ['creneaux' => $creneaux, 'clients' => $clients, 'statut' => $statut, 'statut2' => $statut2 , 'vraistatut' => $vraistatut ]);
     }
 
+    public function confirmerReservation($id)
+    {
+        $model = new ReservationModel();
+        $model->update($id, ['statut' => 'confirmé']);
+        return redirect()->to('/admin')->with('success', 'Réservation confirmée.');
+    }
 
+    public function refuserReservation($id)
+    {
+        $model = new ReservationModel();
+        $model->update($id, ['statut' => 'refusé']);
+        return redirect()->to('/admin')->with('error', 'Réservation refusée.');
+    }
     public function showAjouterCreneau()
     {
         if (session()->get('role') !== 'admin') {
