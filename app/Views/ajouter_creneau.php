@@ -19,14 +19,9 @@
       <div class="sidebar-section">Gestion</div>
       <ul class="sidebar-nav">
         <li><a href="<?= site_url('admin') ?>"><i class="bi bi-speedometer2"></i> Vue d'ensemble</a></li>
-        <li>
-          <a href="<?= site_url('admin#page-admin-reservations') ?>">
-            <i class="bi bi-bookmark-star-fill"></i> Réservations
-            <span class="sidebar-badge urgent">4</span>
-          </a>
-        </li>
         <li><a href="<?= site_url('admin/ajouter-creneau') ?>" class="active"><i class="bi bi-calendar-week-fill"></i> Créneaux</a></li>
         <li><a href="<?= site_url('admin/liste-clients') ?>"><i class="bi bi-people-fill"></i> Clients</a></li>
+        <li><a href="<?= site_url('admin/chart') ?>"><i class="bi bi-bar-chart-line-fill"></i> Statistiques</a></li>
       </ul>
       <div class="sidebar-footer">
         <div class="sidebar-user">

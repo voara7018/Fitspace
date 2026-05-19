@@ -33,5 +33,6 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('', 'Admin::showAdmin');
     $routes->get('ajouter-creneau', 'Admin::showAjouterCreneau');
     $routes->post('ajouter-creneau', 'Admin::ajouterCreneau');
+    $routes->get('chart', 'Admin::showChart');
 });
 

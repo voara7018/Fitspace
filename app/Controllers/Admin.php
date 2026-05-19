@@ -89,4 +89,35 @@ class Admin extends BaseController
 
     }
 
+    public function showChart()
+    {
+        if (session()->get('role') !== 'admin') {
+            return redirect()->to('/')->with('error', 'Accès refusé. Vous devez être administrateur.');
+        }
+
+        $db = \Config\Database::connect();
+
+        $reservationsParRessource = $db->table('reservations r')
+            ->select('ressources.nom AS ressource, COUNT(*) AS total')
+            ->join('creneaux c', 'c.id = r.creneaux_id')
+            ->join('ressources', 'ressources.id = c.ressources_id')
+            ->groupBy('ressources.id')
+            ->get()
+            ->getResultArray();
+
+        $reservationsParJour = $db->table('reservations r')
+            ->select("DATE(c.date_debut) AS date, COUNT(*) AS total")
+            ->join('creneaux c', 'c.id = r.creneaux_id')
+            ->where('c.date_debut >=', date('Y-m-d', strtotime('-7 days')))
+            ->groupBy("DATE(c.date_debut)")
+            ->orderBy("DATE(c.date_debut)", "ASC")
+            ->get()
+            ->getResultArray();
+
+        return view('chart', [
+            'reservationsParRessource' => $reservationsParRessource,
+            'reservationsParJour' => $reservationsParJour
+        ]);
+    }
+
 }
