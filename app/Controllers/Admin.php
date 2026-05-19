@@ -19,7 +19,7 @@ class Admin extends BaseController
         $clients = $modelUser->where('role', 'client')->countAllResults();
 
 
-        return view('admin/admin', ['creneaux' => $creneaux, 'clients' => $clients]);
+        return view('admin', ['creneaux' => $creneaux, 'clients' => $clients]);
     }
 
     public function showAjouterCreneau()
