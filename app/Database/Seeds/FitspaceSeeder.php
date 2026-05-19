@@ -14,6 +14,7 @@ class FitspaceSeeder extends Seeder
             'role'       => 'admin',
             'created_at' => date('Y-m-d H:i:s')
         ]);
+        
 
         // 2. Ensuite les ressources (parent)
         $this->db->table('ressources')->insertBatch([
