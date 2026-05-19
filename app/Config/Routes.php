@@ -16,6 +16,10 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/creneaux', 'Creneau::showCreneaux');
     $routes->get('/logout', 'User::logout');
     $routes->get('creneaux-disponibles', 'Creneau::getCreneauDispo');
+    $routes->get('/creneaux-disponibles', 'Creneau::getCreneauDispo');
+
+    $routes->get('reserver/(:num)', 'Reservation::showReserver/$1');
+
     
 });
 

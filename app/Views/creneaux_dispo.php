@@ -98,7 +98,7 @@
             <?php if ($isFull): ?>
               <button class="btn-reserver disabled" disabled>Complet</button>
             <?php else: ?>
-              <a href="#" class="btn-reserver">Réserver ce créneau</a>
+              <a href="/reserver/<?= $creneau['id'] ?>" class="btn-reserver">Réserver ce créneau</a>
             <?php endif; ?>
           </div>
         <?php endforeach; ?>
