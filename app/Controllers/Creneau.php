@@ -37,5 +37,22 @@ class Creneau extends BaseController
         return view('creneaux_dispo', $data);
     }
 
+    public function insererCreneau() 
+    {
+        $model = new CreneauxModel;
+    
+        $data = [
+            'ressources_id' => $this->request->getPost('ressources_id'),
+            'date_debut' => $this->request->getPost('date_debut'),
+            'date_fin' => $this->request->getPost('date_fin'),
+            'places_dispo' => $this->request->getPost('places_dispo'),
+            'actif' => 1
+        ];
+    
+        $model->insert($data);
+
+        return redirect()->to('/')->with('success', 'Créneau ajouté avec succès.');
+    
+    }
 
 }

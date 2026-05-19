@@ -37,37 +37,43 @@
 
       <div class="page-content">
 
-        <!-- Flash info -->
-        <div class="flash-message flash-info">
-          <i class="bi bi-info-circle-fill"></i>
-          Créneau mis à jour avec succès.
-        </div>
+        <?php if (session()->getFlashdata('success')): ?>
+          <div class="flash-message flash-info">
+            <i class="bi bi-info-circle-fill"></i>
+            <?= esc(session()->getFlashdata('success')) ?>
+          </div>
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('error')): ?>
+          <div class="flash-message flash-info" style="border-left-color: #ff4a5a;">
+            <i class="bi bi-exclamation-circle-fill" style="color: #ff4a5a;"></i>
+            <?= esc(session()->getFlashdata('error')) ?>
+          </div>
+        <?php endif; ?>
 
-        <!-- Formulaire ajout créneau -->
         <div class="form-section">
           <h3><i class="bi bi-plus-circle" style="color:var(--accent);margin-right:6px;"></i>Ajouter un créneau</h3>
-          <form>
+          <form action="<?= site_url('admin/ajouter-creneau') ?>" method="post">
+            <?= csrf_field() ?>
             <div class="form-grid-2" style="margin-bottom:1rem;">
               <div class="form-group">
                 <label class="form-label">Ressource</label>
-                <select class="select-custom">
-                  <option>Salle Zen</option>
-                  <option>Salle Cross</option>
-                  <option>Terrain squash A</option>
-                  <option>Bloc Muscu</option>
+                <select name="ressources_id" class="select-custom">
+                  <?php foreach ($ressources as $ressource){ ?>
+                  <option value="<?= $ressource['id'] ?>"><?= esc($ressource['nom']) ?></option>
+                  <?php } ?>
                 </select>
               </div>
               <div class="form-group">
                 <label class="form-label">Nombre de places</label>
-                <input type="number" class="form-control" value="10" min="1" />
+                <input type="number" name="places_dispo" class="form-control" value="10" min="1" required />
               </div>
               <div class="form-group">
                 <label class="form-label">Date et heure de début</label>
-                <input type="datetime-local" class="form-control" value="2025-06-16T08:00" />
+                <input type="datetime-local" name="date_debut" class="form-control" value="2025-06-16T08:00" required />
               </div>
               <div class="form-group">
                 <label class="form-label">Date et heure de fin</label>
-                <input type="datetime-local" class="form-control" value="2025-06-16T09:30" />
+                <input type="datetime-local" name="date_fin" class="form-control" value="2025-06-16T09:30" required />
               </div>
             </div>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -81,52 +87,61 @@
         <div class="data-card">
           <div class="data-card-header">
             <h3>Tous les créneaux</h3>
-            <span style="font-size:0.8rem;color:var(--muted);">6 créneaux</span>
+            <span style="font-size:0.8rem;color:var(--muted);"><?= count($creneaux) ?> créneau(x)</span>
           </div>
           <table class="table-custom">
             <thead>
               <tr><th>Ressource</th><th>Date début</th><th>Date fin</th><th>Places dispo</th><th>Actif</th><th>Actions</th></tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="td-name">Yoga Détente <span class="creneau-type type-cours" style="font-size:0.65rem;margin-left:5px;">Cours</span></td>
-                <td class="td-muted">16 juin · 08h00</td>
-                <td class="td-muted">16 juin · 09h30</td>
-                <td>6 / 10</td>
-                <td><span class="badge-statut s-confirmee" style="font-size:0.68rem;">Oui</span></td>
-                <td>
-                  <div class="action-btns">
-                    <button class="btn-sm-custom btn-edit"><i class="bi bi-pencil"></i> Éditer</button>
-                    <button class="btn-sm-custom btn-del"><i class="bi bi-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="td-name">CrossFit Intensif <span class="creneau-type type-cours" style="font-size:0.65rem;margin-left:5px;">Cours</span></td>
-                <td class="td-muted">16 juin · 18h00</td>
-                <td class="td-muted">16 juin · 19h30</td>
-                <td>0 / 15</td>
-                <td><span class="badge-statut s-confirmee" style="font-size:0.68rem;">Oui</span></td>
-                <td>
-                  <div class="action-btns">
-                    <button class="btn-sm-custom btn-edit"><i class="bi bi-pencil"></i> Éditer</button>
-                    <button class="btn-sm-custom btn-del"><i class="bi bi-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="td-name">Terrain squash A <span class="creneau-type type-terrain" style="font-size:0.65rem;margin-left:5px;">Terrain</span></td>
-                <td class="td-muted">18 juin · 14h00</td>
-                <td class="td-muted">18 juin · 15h00</td>
-                <td>1 / 2</td>
-                <td><span class="badge-statut s-confirmee" style="font-size:0.68rem;">Oui</span></td>
-                <td>
-                  <div class="action-btns">
-                    <button class="btn-sm-custom btn-edit"><i class="bi bi-pencil"></i> Éditer</button>
-                    <button class="btn-sm-custom btn-del"><i class="bi bi-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
+              <?php if (!empty($creneaux)): ?>
+                <?php foreach ($creneaux as $c): 
+                  $dDeb = new \DateTime($c['date_debut']);
+                  $dFin = new \DateTime($c['date_fin']);
+                  
+                  $fmt = new \IntlDateFormatter('fr_FR', \IntlDateFormatter::NONE, \IntlDateFormatter::NONE, null, null, 'd MMMM');
+                  $dateFormat = $fmt->format($dDeb);
+                  
+                  $typeLower = strtolower($c['ressource_type'] ?? '');
+                  if ($typeLower === 'salle') {
+                      $typeClass = 'type-salle';
+                      $typeLabel = 'Salle';
+                  } elseif ($typeLower === 'terrain') {
+                      $typeClass = 'type-terrain';
+                      $typeLabel = 'Terrain';
+                  } else {
+                      $typeClass = 'type-cours';
+                      $typeLabel = 'Cours';
+                  }
+                ?>
+                  <tr>
+                    <td class="td-name">
+                      <?= esc($c['ressource_nom']) ?>
+                      <span class="creneau-type <?= $typeClass ?>" style="font-size:0.65rem;margin-left:5px;"><?= esc($typeLabel) ?></span>
+                    </td>
+                    <td class="td-muted"><?= esc($dateFormat) ?> · <?= esc($dDeb->format('H\hi')) ?></td>
+                    <td class="td-muted"><?= esc($dateFormat) ?> · <?= esc($dFin->format('H\hi')) ?></td>
+                    <td><?= esc($c['places_dispo']) ?> / <?= esc($c['ressource_capacite'] ?? 10) ?></td>
+                    <td>
+                      <?php if ((int)$c['actif'] === 1): ?>
+                        <span class="badge-statut s-confirmee" style="font-size:0.68rem;">Oui</span>
+                      <?php else: ?>
+                        <span class="badge-statut s-attente" style="font-size:0.68rem;">Non</span>
+                      <?php endif; ?>
+                    </td>
+                    <td>
+                      <div class="action-btns">
+                        <button class="btn-sm-custom btn-edit"><i class="bi bi-pencil"></i> Éditer</button>
+                        <button class="btn-sm-custom btn-del"><i class="bi bi-trash"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--muted); padding: 20px;">Aucun créneau enregistré.</td>
+                </tr>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
