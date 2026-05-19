@@ -89,39 +89,22 @@
             </thead>
             <tbody>
               <?php foreach ($vraistatut as $stat) { ?>
-      
+                   <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="width:28px;height:28px;font-size:0.65rem;"><?= substr($stat->nom, 0, 2) ?></div><span class="td-name"><?= $stat->nom ?></span></div></td>
+                <td class="td-muted"> <?= $stat->nom_ressource ?> </td>
+                <td class="td-muted"> <?= $stat->date_debut ?> </td>
+                <td><span class="badge-statut s-attente"> <?= $stat->statut ?> </span></td>
+                <?php if ($stat->statut === 'en_attente') {  ?>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-sm-custom btn-confirm"><i class="bi bi-check"></i> Confirmer</button>
+                    <button class="btn-sm-custom btn-refuse"><i class="bi bi-x"></i> Refuser</button>
+                  </div>
+                </td>
+                <?php } else { ?>
+                    <td><span style="font-size:0.75rem;color:var(--muted);">—</span></td>
+                 <?php } ?>
+              </tr>
                <?php } ?>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="width:28px;height:28px;font-size:0.65rem;">JD</div><span class="td-name">Jean Dupont</span></div></td>
-                <td class="td-muted">Yoga Détente</td>
-                <td class="td-muted">16 juin · 08h00</td>
-                <td><span class="badge-statut s-attente">en attente</span></td>
-                <td>
-                  <div class="action-btns">
-                    <button class="btn-sm-custom btn-confirm"><i class="bi bi-check"></i> Confirmer</button>
-                    <button class="btn-sm-custom btn-refuse"><i class="bi bi-x"></i> Refuser</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="width:28px;height:28px;font-size:0.65rem;background:#0f3460;">MA</div><span class="td-name">Marie Andria</span></div></td>
-                <td class="td-muted">CrossFit Intensif</td>
-                <td class="td-muted">16 juin · 18h00</td>
-                <td><span class="badge-statut s-attente">en attente</span></td>
-                <td>
-                  <div class="action-btns">
-                    <button class="btn-sm-custom btn-confirm"><i class="bi bi-check"></i> Confirmer</button>
-                    <button class="btn-sm-custom btn-refuse"><i class="bi bi-x"></i> Refuser</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="width:28px;height:28px;font-size:0.65rem;background:#1a6b39;">SR</div><span class="td-name">Soa Rabe</span></div></td>
-                <td class="td-muted">Terrain squash</td>
-                <td class="td-muted">18 juin · 14h00</td>
-                <td><span class="badge-statut s-confirmee">confirmée</span></td>
-                <td><span style="font-size:0.75rem;color:var(--muted);">—</span></td>
-              </tr>
             </tbody>
           </table>
         </div>
