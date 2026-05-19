@@ -48,7 +48,7 @@ class Admin extends BaseController
             ->orderBy('creneaux.date_debut', 'DESC')
             ->findAll();
 
-        return view('admin/ajouter_creneau', [
+        return view('ajouter_creneau', [
             'ressources' => $ressources,
             'creneaux' => $creneaux
         ]);
@@ -74,18 +74,6 @@ class Admin extends BaseController
 
         return redirect()->to('/admin/ajouter-creneau')->with('success', 'Créneau ajouté avec succès.');
 
-    }
-
-    public function showListeClients()
-    {
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/')->with('error', 'Accès refusé. Vous devez être administrateur.');
-        }
-
-        $model = new UserModel();
-        $clients = $model->where('role', 'client')->findAll();
-
-        return view('/admin/liste_clients', ['clients' => $clients]);
     }
 
 }

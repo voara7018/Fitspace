@@ -16,16 +16,23 @@
   <div class="app-wrapper">
     <aside class="sidebar">
       <div class="sidebar-logo">Fit<span>Space</span> <span style="font-size:0.6rem;background:var(--accent);color:#fff;padding:2px 6px;border-radius:4px;vertical-align:middle;">Admin</span></div>
-      <ul class="sidebar-nav" style="margin-top:1rem;">
-        <li><a href="<?= site_url('admin#page-dashboard-admin') ?>"><i class="bi bi-speedometer2"></i> Vue d'ensemble</a></li>
-        <li><a href="<?= site_url('admin#page-admin-reservations') ?>"><i class="bi bi-bookmark-star-fill"></i> Réservations</a></li>
-        <li><a href="<?= site_url('admin#page-admin-creneaux') ?>" class="active"><i class="bi bi-calendar-week-fill"></i> Créneaux</a></li>
-        <li><a href="<?= site_url('admin#page-admin-clients') ?>"><i class="bi bi-people-fill"></i> Clients</a></li>
+      <div class="sidebar-section">Gestion</div>
+      <ul class="sidebar-nav">
+        <li><a href="<?= site_url('admin') ?>"><i class="bi bi-speedometer2"></i> Vue d'ensemble</a></li>
+        <li>
+          <a href="<?= site_url('admin#page-admin-reservations') ?>">
+            <i class="bi bi-bookmark-star-fill"></i> Réservations
+            <span class="sidebar-badge urgent">4</span>
+          </a>
+        </li>
+        <li><a href="<?= site_url('admin/ajouter-creneau') ?>" class="active"><i class="bi bi-calendar-week-fill"></i> Créneaux</a></li>
+        <li><a href="<?= site_url('admin/liste-clients') ?>"><i class="bi bi-people-fill"></i> Clients</a></li>
       </ul>
       <div class="sidebar-footer">
         <div class="sidebar-user">
           <div class="avatar" style="background:#0f3460;">AD</div>
           <div class="user-info"><div class="name">Admin</div><div class="role">Administrateur</div></div>
+          <a href="<?= site_url('logout') ?>" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:1.1rem;"><i class="bi bi-box-arrow-right"></i></a>
         </div>
       </div>
     </aside>

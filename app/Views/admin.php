@@ -23,15 +23,15 @@
       <div class="sidebar-logo">Fit<span>Space</span> <span style="font-size:0.6rem;background:var(--accent);color:#fff;padding:2px 6px;border-radius:4px;vertical-align:middle;">Admin</span></div>
       <div class="sidebar-section">Gestion</div>
       <ul class="sidebar-nav">
-        <li><a href="#page-dashboard-admin" class="active"><i class="bi bi-speedometer2"></i> Vue d'ensemble</a></li>
+        <li><a href="<?= site_url('admin') ?>" class="active"><i class="bi bi-speedometer2"></i> Vue d'ensemble</a></li>
         <li>
-          <a href="#page-admin-reservations">
+          <a href="<?= site_url('admin#page-admin-reservations') ?>">
             <i class="bi bi-bookmark-star-fill"></i> Réservations
             <span class="sidebar-badge urgent">4</span>
           </a>
         </li>
-        <li><a href="#page-admin-creneaux"><i class="bi bi-calendar-week-fill"></i> Créneaux</a></li>
-        <li><a href="#page-admin-clients"><i class="bi bi-people-fill"></i> Clients</a></li>
+        <li><a href="<?= site_url('admin/ajouter-creneau') ?>"><i class="bi bi-calendar-week-fill"></i> Créneaux</a></li>
+        <li><a href="<?= site_url('admin/liste-clients') ?>"><i class="bi bi-people-fill"></i> Clients</a></li>
       </ul>
       <div class="sidebar-footer">
         <div class="sidebar-user">

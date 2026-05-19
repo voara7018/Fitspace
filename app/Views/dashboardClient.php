@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitSpace — Gestionnaire de réservations</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+
+</head>
+<body>
 
 <section id="page-dashboard-client">
   <div class="app-wrapper">
@@ -9,14 +22,13 @@
       <div class="sidebar-section">Menu</div>
       <ul class="sidebar-nav">
         <li><a href="#page-dashboard-client" class="active"><i class="bi bi-grid-1x2-fill"></i> Tableau de bord</a></li>
-        <li><a href="#page-creneaux"><i class="bi bi-calendar3"></i> Voir les créneaux</a></li>
+        <li><a href="/creneaux-disponibles"><i class="bi bi-calendar3"></i> Voir les créneaux</a></li>
         <li>
-          <a href="#page-mes-reservations">
+          <a href="/mes-reservations">
             <i class="bi bi-bookmark-check-fill"></i> Mes réservations
             <span class="sidebar-badge urgent">2</span>
           </a>
         </li>
-        <li><a href="#page-profil"><i class="bi bi-person-fill"></i> Mon profil</a></li>
       </ul>
 
       <div class="sidebar-footer">
@@ -35,9 +47,6 @@
     <div class="main-content">
       <div class="topbar">
         <span class="topbar-title">Tableau de bord</span>
-        <div class="topbar-actions">
-          <a href="#page-creneaux" class="icon-btn" title="Voir les créneaux"><i class="bi bi-plus-lg"></i></a>
-        </div>
       </div>
 
       <div class="page-content">
@@ -114,3 +123,6 @@
   </div>
 </section>
 
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

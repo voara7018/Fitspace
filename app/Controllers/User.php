@@ -89,10 +89,13 @@ class User extends BaseController
         return redirect()->to('/');
     }
 
-    public function getAllClients()
+    public function showDashboard()
     {
-        $model = new UserModel();
-        $clients = $model->where('role', 'client')->findAll();
-        return $clients;
+        return view('dashboardClient');
+    }
+
+    public function showMesReservations()
+    {
+        return view('mes_reservations');
     }
 }
