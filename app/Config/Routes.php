@@ -10,17 +10,18 @@ $routes->get('/', 'User::showLogin');
 $routes->get('/inscription', 'User::showInscription');
 $routes->post('/inscription', 'User::insertUser');
 $routes->post('/login', 'User::loginUser');
-$routes->get('/creneaux-disponibles', 'Creneau::showCreneauDispo');
 
 // Client routes
 $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/creneaux', 'Creneau::showCreneaux');
     $routes->get('/logout', 'User::logout');
+    $routes->get('creneaux-disponibles', 'Creneau::getCreneauDispo');
+    
 });
 
 // Admin routes
 $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('', 'Admin::showAdmin');
-    $routes->get('/ajouter-creneau', 'Admin::showAjouterCreneau');
+    $routes->get('ajouter-creneau', 'Admin::showAjouterCreneau');
 });
 

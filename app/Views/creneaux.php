@@ -36,7 +36,7 @@
     <h1>Votre espace bien-être,<br><em>réservé en 30 secondes.</em></h1>
     <p>Cours collectifs, salles et terrains disponibles 7j/7. Créez un compte gratuit et réservez votre prochain créneau.</p>
     <div class="hero-ctas">
-      <a href="/creneaux-disponibles" class="btn-hero btn-hero-primary">Voir les créneaux disponibles</a>
+      <a href="<?= site_url('creneaux-disponibles') ?>" class="btn-hero btn-hero-primary">Voir les créneaux disponibles</a>
     </div>
   </div>
 
