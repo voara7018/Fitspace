@@ -88,4 +88,11 @@ class User extends BaseController
         session()->destroy();
         return redirect()->to('/');
     }
+
+    public function getAllClients()
+    {
+        $model = new UserModel();
+        $clients = $model->where('role', 'client')->findAll();
+        return $clients;
+    }
 }

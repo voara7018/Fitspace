@@ -17,7 +17,7 @@
   <nav class="nav-public">
     <a href="#" class="brand">Fit<span>Space</span></a>
     <div class="nav-links">
-      <a href="#page-dashboard-client">Mon espace</a>
+      <a href="/">Mon espace</a>
       <a href="#">Déconnexion</a>
     </div>
   </nav>
@@ -36,7 +36,6 @@
       <button class="filter-pill"><i class="bi bi-dribbble"></i> Terrains</button>
     </div>
 
-    <!-- Grille créneaux -->
     <div class="creneaux-grid">
       <?php if (!empty($creneaux)): ?>
         <?php foreach ($creneaux as $creneau): 
@@ -67,8 +66,8 @@
             }
             
             $capacity = (int)($creneau['ressource_capacite'] ?? 10);
-            $remaining = (int)($creneau['places_dispo'] ?? 0);
-            $percentFilled = $capacity > 0 ? (($capacity - $remaining) / $capacity) * 100 : 0;
+            $placedispo = (int)($creneau['places_dispo'] ?? 0);
+            $capacite = $capacity > 0 ? (($capacity - $placedispo) / $capacity) * 100 : 0;
         ?>
           <div class="<?= $cardClass ?>">
             <div class="creneau-header">
@@ -84,15 +83,15 @@
             </div>
             <div>
               <div class="places-bar">
-                <div class="places-fill" style="width:<?= $percentFilled ?>%; <?= $isFull ? 'background:var(--muted)' : '' ?>"></div>
+                <div class="places-fill" style="width:<?= $capacite ?>%; <?= $isFull ? 'background:var(--muted)' : '' ?>"></div>
               </div>
               <div class="places-label">
                 <?php if ($isFull): ?>
                   Complet — 0 place restante
-                <?php elseif ($remaining === 1): ?>
+                <?php elseif ($placedispo === 1): ?>
                   1 place restante sur <?= $capacity ?>
                 <?php else: ?>
-                  <?= $remaining ?> places restantes sur <?= $capacity ?>
+                  <?= $placedispo ?> places restantes sur <?= $capacity ?>
                 <?php endif; ?>
               </div>
             </div>
