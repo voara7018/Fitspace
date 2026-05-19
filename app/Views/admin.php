@@ -55,13 +55,13 @@
         <div class="metrics-row">
           <div class="metric-card">
             <div class="metric-icon yellow"><i class="bi bi-hourglass-split"></i></div>
-            <div class="metric-value">4</div>
+            <div class="metric-value"><?php echo $statut; ?></div>
             <div class="metric-label">En attente</div>
             <div class="metric-trend up"><i class="bi bi-arrow-up-short"></i> +2 aujourd'hui</div>
           </div>
           <div class="metric-card">
             <div class="metric-icon green"><i class="bi bi-check-circle-fill"></i></div>
-            <div class="metric-value">18</div>
+            <div class="metric-value"><?php echo $statut2; ?></div>
             <div class="metric-label">Confirmées ce mois</div>
           </div>
           <div class="metric-card">
@@ -88,6 +88,9 @@
               <tr><th>Client</th><th>Créneau</th><th>Date</th><th>Statut</th><th>Actions</th></tr>
             </thead>
             <tbody>
+              <?php foreach ($vraistatut as $stat) { ?>
+      
+               <?php } ?>
               <tr>
                 <td><div style="display:flex;align-items:center;gap:8px;"><div class="avatar" style="width:28px;height:28px;font-size:0.65rem;">JD</div><span class="td-name">Jean Dupont</span></div></td>
                 <td class="td-muted">Yoga Détente</td>
