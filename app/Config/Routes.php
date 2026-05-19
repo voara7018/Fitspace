@@ -17,6 +17,8 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/logout', 'User::logout');
     $routes->get('creneaux-disponibles', 'Creneau::getCreneauDispo');
     $routes->get('/creneaux-disponibles', 'Creneau::getCreneauDispo');
+    $routes->get('/dashboard', 'User::showDashboard');
+    $routes->get('/mes-reservations', 'Reservation::showMesReservations');
 
     $routes->get('reserver/(:num)', 'Reservation::showReserver/$1');
 

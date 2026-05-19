@@ -21,7 +21,7 @@
 
       <div class="sidebar-section">Menu</div>
       <ul class="sidebar-nav">
-        <li><a href="#page-dashboard-client" class="active"><i class="bi bi-grid-1x2-fill"></i> Tableau de bord</a></li>
+        <li><a href="/dashboard" class="active"><i class="bi bi-grid-1x2-fill"></i> Tableau de bord</a></li>
         <li><a href="/creneaux-disponibles"><i class="bi bi-calendar3"></i> Voir les créneaux</a></li>
         <li>
           <a href="/mes-reservations">
@@ -33,12 +33,12 @@
 
       <div class="sidebar-footer">
         <div class="sidebar-user">
-          <div class="avatar">JD</div>
+          <div class="avatar"><?= substr(session()->get('nom'), 0, 2) ?></div>
           <div class="user-info">
-            <div class="name">Jean Dupont</div>
+            <div class="name"><?= session()->get('nom') ?></div>
             <div class="role">Client</div>
           </div>
-          <a href="#page-login" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:1.1rem;" title="Déconnexion"><i class="bi bi-box-arrow-right"></i></a>
+          <a href="<?= site_url('logout') ?>" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:1.1rem;" title="Déconnexion"><i class="bi bi-box-arrow-right"></i></a>
         </div>
       </div>
     </aside>

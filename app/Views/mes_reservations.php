@@ -17,15 +17,14 @@
     <aside class="sidebar">
       <div class="sidebar-logo">Fit<span>Space</span></div>
       <ul class="sidebar-nav" style="margin-top:1rem;">
-        <li><a href="#page-dashboard-client"><i class="bi bi-grid-1x2-fill"></i> Tableau de bord</a></li>
-        <li><a href="#page-creneaux"><i class="bi bi-calendar3"></i> Voir les créneaux</a></li>
-        <li><a href="#page-mes-reservations" class="active"><i class="bi bi-bookmark-check-fill"></i> Mes réservations</a></li>
-        <li><a href="#page-profil"><i class="bi bi-person-fill"></i> Mon profil</a></li>
+        <li><a href="/dashboard"><i class="bi bi-grid-1x2-fill"></i> Tableau de bord</a></li>
+        <li><a href="/creneaux"><i class="bi bi-calendar3"></i> Voir les créneaux</a></li>
+        <li><a href="/mes-reservations" class="active"><i class="bi bi-bookmark-check-fill"></i> Mes réservations</a></li>
       </ul>
       <div class="sidebar-footer">
         <div class="sidebar-user">
           <div class="avatar">JD</div>
-          <div class="user-info"><div class="name">Jean Dupont</div><div class="role">Client</div></div>
+          <div class="user-info"><div class="name"><?= session()->get('nom') ?></div><div class="role">Client</div></div>
         </div>
       </div>
     </aside>

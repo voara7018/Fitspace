@@ -17,8 +17,8 @@
   <nav class="nav-public">
     <a href="#" class="brand">Fit<span>Space</span></a>
     <div class="nav-links">
-      <a href="/">Mon espace</a>
-      <a href="#">Déconnexion</a>
+      <a href="/dashboard">Mon espace</a>
+      <a href="<?= site_url('logout') ?>"> Déconnexion</a>
     </div>
   </nav>
 

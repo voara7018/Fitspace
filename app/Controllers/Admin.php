@@ -26,6 +26,7 @@ class Admin extends BaseController
         ->join('users', 'reservations.users_id = users.id')
         ->join('creneaux', 'reservations.creneaux_id = creneaux.id')
         ->join('ressources', 'creneaux.ressources_id = ressources.id')
+        ->asObject()
         ->findAll();
 
 
