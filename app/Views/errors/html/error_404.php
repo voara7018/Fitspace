@@ -1,84 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <title><?= lang('Errors.pageNotFound') ?></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitSpace — Page introuvable (404)</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    :root {
+      --primary:    #1a1a2e;
+      --accent:     #e94560;
+      --accent2:    #0f3460;
+      --surface:    #f7f7fa;
+      --text:       #1a1a2e;
+      --muted:      #7b7b96;
+    }
 
-    <style>
-        div.logo {
-            height: 200px;
-            width: 155px;
-            display: inline-block;
-            opacity: 0.08;
-            position: absolute;
-            top: 2rem;
-            left: 50%;
-            margin-left: -73px;
-        }
-        body {
-            height: 100%;
-            background: #fafafa;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            color: #777;
-            font-weight: 300;
-        }
-        h1 {
-            font-weight: lighter;
-            letter-spacing: normal;
-            font-size: 3rem;
-            margin-top: 0;
-            margin-bottom: 0;
-            color: #222;
-        }
-        .wrap {
-            max-width: 1024px;
-            margin: 5rem auto;
-            padding: 2rem;
-            background: #fff;
-            text-align: center;
-            border: 1px solid #efefef;
-            border-radius: 0.5rem;
-            position: relative;
-        }
-        pre {
-            white-space: normal;
-            margin-top: 1.5rem;
-        }
-        code {
-            background: #fafafa;
-            border: 1px solid #efefef;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            display: block;
-        }
-        p {
-            margin-top: 1.5rem;
-        }
-        .footer {
-            margin-top: 2rem;
-            border-top: 1px solid #efefef;
-            padding: 1em 2em 0 2em;
-            font-size: 85%;
-            color: #999;
-        }
-        a:active,
-        a:link,
-        a:visited {
-            color: #dd4814;
-        }
-    </style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--primary);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Ambient glow backgrounds */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(233, 69, 96, 0.15) 0%, rgba(233, 69, 96, 0) 70%);
+      top: -100px;
+      left: -100px;
+      z-index: 1;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(15, 52, 96, 0.2) 0%, rgba(15, 52, 96, 0) 70%);
+      bottom: -150px;
+      right: -150px;
+      z-index: 1;
+    }
+
+    .error-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      z-index: 2;
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .error-code {
+      font-family: 'Syne', sans-serif;
+      font-size: 6rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent) 0%, #ff7b93 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      letter-spacing: -2px;
+      filter: drop-shadow(0 4px 10px rgba(233, 69, 96, 0.3));
+    }
+
+    .error-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+    .error-logo span { color: var(--accent); }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      transition: all 0.15s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+    }
+    .action-btn:hover {
+      background: #c73250;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(233, 69, 96, 0.45);
+    }
+    .action-btn:active {
+      transform: translateY(0);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="wrap">
-        <h1>404</h1>
 
-        <p>
-            <?php if (ENVIRONMENT !== 'production') : ?>
-                <?= nl2br(esc($message)) ?>
-            <?php else : ?>
-                <?= lang('Errors.sorryCannotFind') ?>
-            <?php endif; ?>
-        </p>
-    </div>
+  <div class="error-card">
+    <div class="error-code">404</div>
+    
+    <div class="error-logo">Fit<span>Space</span></div>
+    
+    <h1>Page introuvable</h1>
+    
+    <p>
+      Oups ! La page que vous recherchez n'existe pas, a été déplacée ou est temporairement indisponible.
+    </p>
+    
+    <a href="/" class="action-btn">
+      <i class="bi bi-house-door-fill"></i>
+      Retourner à l'accueil
+    </a>
+  </div>
+
 </body>
 </html>
