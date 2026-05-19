@@ -13,4 +13,10 @@ class Creneau extends BaseController
     {
         return view('creneaux_dispo');
     }
+
+    public function getCreneauDispo()
+    {
+
+    }
+
 }

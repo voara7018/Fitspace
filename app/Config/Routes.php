@@ -21,5 +21,6 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
 // Admin routes
 $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('', 'Admin::showAdmin');
+    $routes->get('/ajouter-creneau', 'Admin::showAjouterCreneau');
 });
 
