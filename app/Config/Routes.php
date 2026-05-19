@@ -23,6 +23,7 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/mes-reservations', 'Reservation::showMesReservations');
 
     $routes->get('reserver/(:num)', 'Reservation::showReserver/$1');
+    $routes->get('annuler-reservation/(:num)', 'Reservation::annulerReservation/$1');
 
     
 });
