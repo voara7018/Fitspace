@@ -35,3 +35,12 @@ Create table reservations (
     foreign key (users_id) references users(id),
     foreign key (creneaux_id) references creneaux(id)
 );
+
+
+CREATE table events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR (255) NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NUll,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
