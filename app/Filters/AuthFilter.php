@@ -12,7 +12,7 @@ class AuthFilter implements FilterInterface
         $session = session();
         if (! $session->get('isLoggedIn')) {
             // Redirige vers la page de login si non connecté
-            return redirect()->to('/login');
+            return redirect()->to('/');
         }
     }
 

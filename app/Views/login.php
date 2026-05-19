@@ -20,26 +20,37 @@
       <div class="auth-logo">Fit<span>Space</span></div>
       <div class="auth-subtitle">Bienvenue ! Connectez-vous à votre espace.</div>
 
-      <!-- Flashdata erreur CI4 -->
+      <?php if (session()->getFlashdata('error')): ?>
       <div class="flash-message flash-error">
         <i class="bi bi-exclamation-circle-fill"></i>
-        Email ou mot de passe incorrect.
+        <?= esc(session()->getFlashdata('error')) ?>
       </div>
+      <?php endif; ?>
 
-      <form>
+      <?php if (session()->getFlashdata('success')): ?>
+      <div class="flash-message flash-success">
+        <i class="bi bi-check-circle-fill"></i>
+        <?= esc(session()->getFlashdata('success')) ?>
+      </div>
+      <?php endif; ?>
+
+      <form action="<?= site_url('login') ?>" method="post">
+        <?= csrf_field() ?>
         <div class="form-group mb-3">
           <label class="form-label">Adresse email</label>
-          <input type="email" class="form-control" placeholder="votre@email.com" />
+          <input type="email" name="email" class="form-control" placeholder="votre@email.com" value="<?= old('email') ?>" required />
+          <div class="text-danger small mt-1"><?= isset($validation['email']) ? esc($validation['email']) : '' ?></div>
         </div>
         <div class="form-group mb-4">
           <label class="form-label">Mot de passe</label>
-          <input type="password" class="form-control" placeholder="••••••••" />
+          <input type="password" name="password" class="form-control" placeholder="••••••••" required />
+          <div class="text-danger small mt-1"><?= isset($validation['password']) ? esc($validation['password']) : '' ?></div>
         </div>
         <button type="submit" class="btn-primary-custom">Se connecter</button>
       </form>
 
       <hr class="auth-divider" />
-      <div class="auth-footer">Pas encore de compte ? <a href="#page-inscription">Créer un compte</a></div>
+      <div class="auth-footer">Pas encore de compte ? <a href="/inscription">Créer un compte</a></div>
     </div>
   </div>
 </section>

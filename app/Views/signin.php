@@ -20,57 +20,56 @@
         <div class="auth-logo">Fit<span>Space</span></div>
         <div class="auth-subtitle">Créez votre compte client gratuitement.</div>
 
-        <form>
+        <?php if (session()->getFlashdata('error')): ?>
+        <div class="flash-message flash-error">
+          <i class="bi bi-exclamation-circle-fill"></i>
+          <?= esc(session()->getFlashdata('error')) ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('success')): ?>
+        <div class="flash-message flash-success">
+          <i class="bi bi-check-circle-fill"></i>
+          <?= esc(session()->getFlashdata('success')) ?>
+        </div>
+        <?php endif; ?>
+
+        <form action="<?= site_url('inscription') ?>" method="post">
+            <?= csrf_field() ?>
             <div class="form-grid-2 mb-3">
-            <!-- prénom -->
-            <div class="form-group">
-                <label class="form-label">Prénom</label>
-                <input type="text" class="form-control" placeholder="Jean" />
+                <!-- nom -->
+                <div class="form-group">
+                    <label class="form-label">Nom</label>
+                    <input type="text" name="nom" class="form-control" placeholder="Dupont" value="<?= old('nom') ?>" required />
+                    <div class="text-danger small mt-1"><?= isset($validation['nom']) ? esc($validation['nom']) : '' ?></div>
+                </div>
             </div>
 
-            <!-- nom -->
-            <div class="form-group">
-                <label class="form-label">Nom</label>
-                <input type="text" class="form-control" placeholder="Dupont" />
-            </div>
-
-            <!--email -->
-            </div>
             <div class="form-group mb-3">
-            <label class="form-label">Adresse email</label>
-            <input type="email" class="form-control" placeholder="jean.dupont@email.com" />
-            <!-- Erreur de validation CI4 -->
-            <small style="color:var(--accent);font-size:0.78rem;margin-top:3px;">Cet email est déjà utilisé.</small>
-            </div>
-
-            <!-- role -->
-            <div class="form-group mb-3">
-            <label class="form-label">Rôle</label>
-            <select class="form-select">
-                <option value="" disabled selected>Choisissez votre rôle</option>
-                <option value="client">Client</option>
-                <option value="admin">Administrateur</option>
-            </select>
+                <label class="form-label">Adresse email</label>
+                <input type="email" name="email" class="form-control" placeholder="jean.dupont@email.com" value="<?= old('email') ?>" required />
+                <div class="text-danger small mt-1"><?= isset($validation['email']) ? esc($validation['email']) : '' ?></div>
             </div>
 
             <!-- mot de passe -->
             <div class="form-group mb-3">
-            <label class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" placeholder="8 caractères minimum" />
+                <label class="form-label">Mot de passe</label>
+                <input type="password" name="password" class="form-control" placeholder="8 caractères minimum" required />
+                <div class="text-danger small mt-1"><?= isset($validation['password']) ? esc($validation['password']) : '' ?></div>
             </div>
 
             <!-- confirmation mot de passe -->
             <div class="form-group mb-4">
-            <label class="form-label">Confirmer le mot de passe</label>
-            <input type="password" class="form-control" placeholder="Retapez votre mot de passe" />
+                <label class="form-label">Confirmer le mot de passe</label>
+                <input type="password" name="password_confirm" class="form-control" placeholder="Retapez votre mot de passe" required />
+                <div class="text-danger small mt-1"><?= isset($validation['password_confirm']) ? esc($validation['password_confirm']) : '' ?></div>
             </div>
-
 
             <button type="submit" class="btn-primary-custom">Créer mon compte</button>
         </form>
 
         <hr class="auth-divider" />
-        <div class="auth-footer">Déjà inscrit ? <a href="#page-login">Se connecter</a></div>
+        <div class="auth-footer">Déjà inscrit ? <a href="<?= site_url('/') ?>">Se connecter</a></div>
         </div>
     </div>
     </section>

@@ -7,14 +7,13 @@ class UserModel extends Model
 {
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['prenom', 'nom', 'email', 'password', 'role'];
+    protected $allowedFields = ['nom', 'email', 'password', 'role'];
 
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
 
 
     protected $validationRules = [
-        'prenom' => 'required|min_length[2]|max_length[50]',
         'nom' => 'required|min_length[2]|max_length[50]',
         'email' => 'required|valid_email|is_unique[users.email]',
         'password' => 'required|min_length[4]',
@@ -23,11 +22,6 @@ class UserModel extends Model
     ];
 
     protected $validationMessages = [
-        'prenom' => [
-            'required' => 'Le prénom est requis.',
-            'min_length' => 'Le prénom doit comporter au moins 2 caractères.',
-            'max_length' => 'Le prénom ne peut pas dépasser 50 caractères.'
-        ],
         'nom' => [
             'required' => 'Le nom est requis.',
             'min_length' => 'Le nom doit comporter au moins 2 caractères.',

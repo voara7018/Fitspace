@@ -33,7 +33,7 @@
         <div class="sidebar-user">
           <div class="avatar" style="background:#0f3460;">AD</div>
           <div class="user-info"><div class="name">Admin</div><div class="role">Administrateur</div></div>
-          <a href="#page-login" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:1.1rem;"><i class="bi bi-box-arrow-right"></i></a>
+          <a href="<?= site_url('logout') ?>" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:1.1rem;"><i class="bi bi-box-arrow-right"></i></a>
         </div>
       </div>
     </aside>

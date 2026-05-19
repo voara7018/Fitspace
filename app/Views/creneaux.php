@@ -20,8 +20,13 @@
     <div class="nav-links">
       <a href="#">Nos créneaux</a>
       <a href="#">Tarifs</a>
-      <a href="#page-login">Connexion</a>
-      <a href="#page-inscription" class="btn-nav-primary">S'inscrire</a>
+      <?php if (session()->get('isLoggedIn')): ?>
+        <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 500;">Bonjour, <?= esc(session()->get('nom')) ?></span>
+        <a href="<?= site_url('logout') ?>" class="btn-nav-primary"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
+      <?php else: ?>
+        <a href="<?= site_url('/') ?>">Connexion</a>
+        <a href="<?= site_url('inscription') ?>" class="btn-nav-primary">S'inscrire</a>
+      <?php endif; ?>
     </div>
   </nav>
 
