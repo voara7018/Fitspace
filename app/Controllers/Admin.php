@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\CreneauxModel;
+
 
 class Admin extends BaseController
 {
@@ -9,6 +11,9 @@ class Admin extends BaseController
         if (session()->get('role') !== 'admin') {
             return redirect()->to('/')->with('error', 'Accès refusé. Vous devez être administrateur.');
         }
-        return view('admin');
+
+        $model = new CreneauxModel;
+        $creneaux = $model->findAll();
+        return view('admin/admin', ['creneaux' => $creneaux]);
     }
 }
