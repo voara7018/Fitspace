@@ -44,3 +44,4 @@ CREATE table events (
     end_date DATETIME NUll,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
